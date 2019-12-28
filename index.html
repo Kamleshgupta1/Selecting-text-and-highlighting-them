@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+    <title>fdfefsd</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link href="style.css" type='text/css' rel='stylesheet' >
+    
+    <!-------------------------Add this code in head of sampletest file------------------------------>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            // Hide context menu
+            $(document).bind('contextmenu click',function(){
+                $(".context-menu").hide();
+                $("#txt_id").val("");
+            });
+
+            // disable right click and show custom context menu
+            $("*").bind('contextmenu', function (e) {
+                var id = this.id;
+                $("#txt_id").val(id);
+                                
+                var top = e.pageY+5;
+                var left = e.pageX;
+
+                // Show contextmenu
+                $(".context-menu").toggle(100).css({
+                    top: top + "px",
+                    left: left + "px"
+                });
+
+                // Disable default menu
+                return false;
+            });
+
+            // disable context-menu from custom menu
+            $('.context-menu').bind('contextmenu',function(){
+                return false;
+            });
+            
+            // Clicked context-menu item
+            $('.context-menu li').click(function(){
+                var className = $(this).find("span:nth-child(1)").attr("class");
+                var titleid = $('#txt_id').val();
+                $( "#"+ titleid ).css( "background-color", className );
+                $(".context-menu").hide();
+            });
+
+        });
+             
+        
+         function surroundSelection() {
+            var span = document.createElement("span");
+            span.className = "selected";
+
+            if (window.getSelection) {
+                var sel = window.getSelection();
+                if (sel.rangeCount) {
+                    var range = sel.getRangeAt(0).cloneRange();
+                    range.surroundContents(span);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }
+
+        }
+    </script>
+    <!-----------------------------------------------END----------------------------------------------->
+
+</head>
+    
+<body>
+    
+    <!-------------------------Add this code in body of sampletest file-------------------------------->
+    <!-- Context-menu -->
+    <div class='context-menu'>
+        <ul>
+            <li>&nbsp;<input type="button" id="selection" onclick="surroundSelection()" value="Highlight"></li>
+            <li>&nbsp;<span>Notes</span></li>
+        </ul>
+    </div>
+    <!----------------------------------------------END------------------------------------------------>
+    
+    <p>Clearly, when older people do heavy physical work, their age may affect their productivity. But other skills may increase with age, including many that are crucial for good management, such as an ability to handle people diplomatically, to run a meeting or to spot a problem before it blows up. Peter Hicks, who co-ordinates OECD* work on the policy implications of ageing, says that plenty of research suggests older people are paid more because they are worth more.</p> 
+    
+</body>
+</html>
